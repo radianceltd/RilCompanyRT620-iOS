@@ -1,0 +1,58 @@
+//
+//  Constants.swift
+//  TMW041RT
+//
+//  Created by RND on 2023/3/22.
+//
+
+import UIKit
+
+//APP全局常量定义导航栏颜色
+let APP_NAVIGATION_TITLE_COLOR = "#353535"
+
+//APP蓝牙列表的名称
+let APP_BLELISTNAME_DATA = "TMW"
+
+//蓝牙设备列表的样式布局常量CELL
+let BLEDEVICELISTCELL = "BLEDEVICELISTCELL"
+
+//屏幕的宽度和高度
+let screenWidth = UIScreen.main.bounds.width
+let screenHeight = UIScreen.main.bounds.height
+
+
+let FILEPARAMES = "FILEPARAMES"
+let CSVFILENAMEPARAMES = "CSVFILENAMEPARAMES"
+let CSVFILEPARAMES = "CSVFILEPARAMES"
+let PDFFILEPARAMES = "PDFFILEPARAMES"
+
+let TEMPSAMPLINGINTERVAL = "TEMPSAMPLINGINTERVAL"
+
+let OPENSERVER = "OPENSERVER"
+
+let PROGRESS_INT = "PROGRESS_INT"
+
+
+let UNIT = "UNIT"
+
+let UNITC = "°C"
+
+let UNITF = "°F"
+
+let MAC = "MAC" //地址
+
+let VERSION = "VERSION" //版本号
+let BLE_EVEN_ODD = "BLE_EVEN_ODD"//是奇数还是偶数
+
+let ADVINTV = "ADVINTV"//广播事件间隔
+let ADVTIME = "ADVTIME"//广播持续时间
+let CONNMININTV = "CONNMININTV"//蓝牙连接最小间隔
+let CONNMAXINTV = "CONNMAXINTV"//蓝牙连接最大间隔
+
+let ADVINTV_PARAMETER = "ADVINTV_PARAMETER"//蓝牙连接最大间隔
+let ADVTIME_PARAMETER = "ADVTIME_PARAMETER"//蓝牙连接最大间隔
+let CONNMININTV_PARAMETER = "CONNMININTV_PARAMETER"//蓝牙连接最大间隔
+let CONNMAXINTV_PARAMETER = "CONNMAXINTV_PARAMETER"//蓝牙连接最大间隔
+
+
+

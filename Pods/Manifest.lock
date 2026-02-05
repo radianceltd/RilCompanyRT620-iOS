@@ -1,0 +1,72 @@
+PODS:
+  - Alamofire (5.11.0)
+  - Charts (3.6.0):
+    - Charts/Core (= 3.6.0)
+  - Charts/Core (3.6.0)
+  - cysmart_ota_update (1.0.0)
+  - FMDB (2.7.11):
+    - FMDB/standard (= 2.7.11)
+  - FMDB/standard (2.7.11)
+  - HandyJSON (5.0.2)
+  - iOSDFULibrary (4.13.0):
+    - ZIPFoundation (= 0.9.11)
+  - Masonry (1.1.0)
+  - MBProgressHUD (1.2.0)
+  - MJRefresh (3.4.3)
+  - SnapKit (5.0.1)
+  - SwiftEventBus (5.0.0)
+  - WHToast (0.0.8)
+  - WMPageController (2.4.3)
+  - ZIPFoundation (0.9.11)
+
+DEPENDENCIES:
+  - Alamofire
+  - Charts
+  - cysmart_ota_update (~> 1.0.0)
+  - FMDB
+  - HandyJSON (~> 5.0.0)
+  - iOSDFULibrary
+  - Masonry
+  - MBProgressHUD (~> 1.2.0)
+  - MJRefresh (~> 3.4.3)
+  - SnapKit (~> 5.0.0)
+  - SwiftEventBus
+  - WHToast (~> 0.0.3)
+  - WMPageController (~> 2.4.0)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Charts
+    - cysmart_ota_update
+    - FMDB
+    - HandyJSON
+    - iOSDFULibrary
+    - Masonry
+    - MBProgressHUD
+    - MJRefresh
+    - SnapKit
+    - SwiftEventBus
+    - WHToast
+    - WMPageController
+    - ZIPFoundation
+
+SPEC CHECKSUMS:
+  Alamofire: bd5e7b23a1a750975288482c1831d71e74415f86
+  Charts: 888b39ae772b3dc79d0a0e659f0419ff9bd3e963
+  cysmart_ota_update: f04e11fcb7cadbb45b8d3118bbd7776615b90723
+  FMDB: 57486c1117fd8e0e6b947b2f54c3f42bf8e57a4e
+  HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
+  iOSDFULibrary: ae1bcb1cb921e6e3ff551755f6fdff1b77e07e15
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  MJRefresh: 53e3e3219f204425ee6d3e62e8733d3295944cd6
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  SwiftEventBus: b30f617a6aca5a9336464b4d3f5931034762f2d5
+  WHToast: 5da5bb80bdd1fea9455d4215577d9c5be2c506b8
+  WMPageController: 4c7f2c636675a71aea5eecf8fdc07a0ce86954e3
+  ZIPFoundation: b1f0de4eed33e74a676f76e12559ab6b75990197
+
+PODFILE CHECKSUM: f5be2cb0ce016f38271d8ebfe3fd9438fa688014
+
+COCOAPODS: 1.16.2

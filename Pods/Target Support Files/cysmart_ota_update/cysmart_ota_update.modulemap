@@ -1,0 +1,6 @@
+framework module cysmart_ota_update {
+  umbrella header "cysmart_ota_update-umbrella.h"
+
+  export *
+  module * { export * }
+}
