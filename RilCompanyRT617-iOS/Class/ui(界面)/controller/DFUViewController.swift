@@ -7,7 +7,7 @@
 
 import UIKit
 import CoreBluetooth
-import iOSDFULibrary
+import NordicDFU
 import WHToast
 
 class DFUViewController: NavigationController,DFUServiceDelegate, DFUProgressDelegate, LoggerDelegate, DFUViewProtocol {

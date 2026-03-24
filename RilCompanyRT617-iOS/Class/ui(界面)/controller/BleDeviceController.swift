@@ -136,7 +136,7 @@ class BleDeviceController:NavigationController,AppDelegateDelegate,UITableViewDe
             let alertController = CleanAlertController(title: tips, message: "There is a new version of the current application! Due to some fatal problems in the current program, it is recommended to update to the latest version immediately", preferredStyle: .alert)
             
             let yesAction = UIAlertAction(title: ok, style: .default, handler: { action in
-                let str = "itms-apps://itunes.apple.com/cn/app/id6473766555?mt=8"
+                let str = "itms-apps://itunes.apple.com/cn/app/id6758743234?mt=8"
                 if let url = URL(string: str) {
                     UIApplication.shared.open(url)
                 }

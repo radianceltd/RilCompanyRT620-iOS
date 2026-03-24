@@ -36,7 +36,7 @@ class NetworkManager{
     }
     
     func appStoreCheck(from viewController: UIViewController,versionBool:Bool) {
-        let dict = ["id": "6473766555"]
+        let dict = ["id": "6758743234"]
         let session = Session.default
         
         session.request("http://itunes.apple.com/cn/lookup?", method: .get, parameters: dict)
@@ -66,7 +66,7 @@ class NetworkManager{
                                 let alert = UIAlertController(title: "Version update", message: "With the latest version of APP released, please go to the Apple App store for updates.!", preferredStyle: .alert)
                                 
                                 let defaultAction = UIAlertAction(title: "Update", style: .default) { action in
-                                    let str = "itms-apps://itunes.apple.com/cn/app/id6473766555?mt=8"
+                                    let str = "itms-apps://itunes.apple.com/cn/app/id6758743234?mt=8"
                                     if let url = URL(string: str) {
                                         UIApplication.shared.open(url)
                                     }

@@ -95,10 +95,10 @@ class BleManager:NSObject,CBCentralManagerDelegate,CBPeripheralDelegate{
     var bleModel = BleModel()
     
     // 新增数据读取
-    let RECEIVE_DATA_UUID = CBUUID(string: "FFF2")
-    
+    let RECEIVE_DATA_UUID = CBUUID(string: "FFF2")        // 设备数据通知服务
+    let RECEIVE_INDICATE_UUID = CBUUID(string: "FFF3")   // 设备数据指示服务
     let RECEIVE_FILE_UUID = CBUUID(string: "FFFE")
-    
+
     let SEND_DATA_UUID = CBUUID(string: "FFF1")
     
     let SEND_OTA_UUID = CBUUID(string: "FFF1")
@@ -135,19 +135,16 @@ class BleManager:NSObject,CBCentralManagerDelegate,CBPeripheralDelegate{
         centerManager = CBCentralManager(delegate: self, queue: queue)
     }
     
-    //连接后设置MTU最大值为247
+    //连接后请求MTU最大值为247
     func setMTU(_ central: CBCentralManager, peripheral: CBPeripheral) {
-        // 设置设备的 MTU 大小为 247
+        // 协议要求: 文件传输前需要设置 MTU=247 提高传输效率
+        // 注意: 在 iOS 中，MTU 由系统协商，这里只打印当前最大写入长度
+        // 实际写入时，iOS 会自动使用最大可用长度
         let mtuSize = peripheral.maximumWriteValueLength(for: .withoutResponse)
-        print("当前 MTU 大小为：\(mtuSize)")
-        //        peripheral.setPreferredMTU(247, completion: { (mtu, error) in
-        //            if let error = error {
-        //                print("设置 MTU 大小失败: \(error.localizedDescription)")
-        //            } else {
-        //                print("已成功设置设备的 MTU 大小为: \(mtu)")
-        //                // 在这里继续执行读取数据的操作
-        //            }
-        //        })
+        print("当前最大写入长度 MTU: \(mtuSize)")
+        if mtuSize < 200 {
+            print("提示: 当前 MTU 较小，文件传输会较慢。iOS 版本支持时将自动协商更大 MTU")
+        }
     }
     
     // 打开CCCD
@@ -553,24 +550,35 @@ class BleManager:NSObject,CBCentralManagerDelegate,CBPeripheralDelegate{
                 
                 // 重新设计制作 2023/6/27 13:46
                 if character.uuid == RECEIVE_DATA_UUID {
-                    
+
                     for model in successList {
-                        
+
                         // 当前的peripheral 相等
                         if model.mPeripheral == peripheral{
-                            
+
                             model.readTempCharater = character
                             //peripheral.discoverDescriptors(for: character)
                             //peripheral.readValue(for: character)
+                            // 协议要求: 必须先开通知服务
                             peripheral.setNotifyValue(true, for: character)
                             // 打开通知代码
                             //peripherals(peripheral: peripheral, didDiscoverCharacteristicsForService: service, error: error as NSError?)
                         }
                     }
                 }
+                // 设备数据指示服务 (协议: 必须开启，且在通知服务之后开启)
+                else if character.uuid == RECEIVE_INDICATE_UUID {
+                    for model in successList {
+                        if model.mPeripheral == peripheral {
+                            // 开启指示服务（协议要求CCCD必须打开）
+                            peripheral.setNotifyValue(true, for: character)
+                            print("指示服务 0xFFF3 CCCD 已开启")
+                        }
+                    }
+                }
                 // Ota
                 else if character.uuid == SEND_OTA_UUID {
-                    
+
                     for model in successList {
                         if model.mPeripheral == peripheral {
                             model.mSendotacharater = character
@@ -581,7 +589,7 @@ class BleManager:NSObject,CBCentralManagerDelegate,CBPeripheralDelegate{
                 }else if character.uuid == RECEIVE_FILE_UUID{
                     for model in successList {
                         if model.mPeripheral == peripheral {
-                            
+
                             //开启通知
                             peripheral.setNotifyValue(true, for: character)
                         }

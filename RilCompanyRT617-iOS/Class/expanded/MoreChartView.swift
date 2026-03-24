@@ -9,7 +9,7 @@ import UIKit
 import SwiftEventBus
 import WHToast
 import MBProgressHUD
-import Charts
+import DGCharts
 
 
 let ALERTVIEW_HEIGHTM = UIScreen.main.bounds.size.height / 1.2
@@ -118,7 +118,7 @@ class MoreChartView: BaseView,MoreViewDelegate{
         marker.chartView = moreView!.lineChart
         marker.minimumSize = CGSize(width: 60.0, height: 40.0)
         moreView!.lineChart!.marker = marker
-        moreView!.lineChart!.chartDescription?.enabled = false
+        moreView!.lineChart!.chartDescription.enabled = false
         
         moreView!.lineChart!.legend.formSize = 8
         moreView!.lineChart!.legend.textColor = UIColor.gray
@@ -283,7 +283,6 @@ class MoreChartView: BaseView,MoreViewDelegate{
               //Version 3.3.0版本
               set1 = LineChartDataSet(entries: (yVals as! [ChartDataEntry]), label: dd)
               set1?.axisDependency = .left
-              
               set1?.setColor(UIColor.blue)
               set1?.valueTextColor = UIColor(red: 51 / 255.0, green: 181 / 255.0, blue: 229 / 255.0, alpha: 1.0)
               
@@ -300,12 +299,13 @@ class MoreChartView: BaseView,MoreViewDelegate{
               set1?.fillColor = UIColor.red
               set1?.highlightColor = UIColor.red
               
-              var dataSets: [Any] = []
-              dataSets.append(set1!)
-              let data = LineChartData(dataSets: [set1] as? [IChartDataSet])
+          // 关键修复：正确处理可选类型和使用正确的协议
+          if let validSet = set1 {
+              let data = LineChartData(dataSets: [validSet])
               data.setValueFont(.systemFont(ofSize: 9.0))
               data.setValueTextColor(.white)
               moreView!.lineChart?.data = data
+          }
          // }
        }
     }

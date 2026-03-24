@@ -1272,22 +1272,22 @@ extension SetingContrller{
             let c = UInt8(components.day! % 256)
             let d = UInt8(components.hour! % 256)
             let e = UInt8(components.minute! % 256)
-            let f = UInt8(components.second! % 256)
-            
-            let data: [UInt8] = [f,e, d, c, b, a]
-            
+
+            // 协议：D0=分钟 D1=小时 D2=日 D3=月 D4=年 → 共5字节，不需要秒
+            let data: [UInt8] = [e, d, c, b, a]
+
             // 输出 data 数组的内容
             for value in data {
                 print(String(format: "0x%02X", value))
             }
-            
-            // 发送数据
-            let ins: UInt8 = 0x0A
-            let len: UInt8 = 6
+
+            // 发送数据：设置时间指令是 INS=0x04，LEN=5（5个参数）
+            let ins: UInt8 = 0x04
+            let len: UInt8 = 5
             let packet = self.allExpanded.buildInstructionPacket(ins: ins, len: len, data: data)
             let hexString = self.allExpanded.hexadecimalString(from: packet)
             print(hexString)
-            
+
             BleManager.shared.writeValue(packet, self.model?.mSendotacharater, self.model?.mPeripheral)
             //用于判断点击更新日期后，同步到列表的最新日期
             let eString = (e < 10) ? "0\(e)" : "\(e)"

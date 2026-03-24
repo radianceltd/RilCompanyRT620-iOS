@@ -6,9 +6,9 @@
 //
 
 import UIKit
-import Charts
+import DGCharts
 
-class DateValueFormatter: NSObject,IAxisValueFormatter {
+class DateValueFormatter: NSObject,AxisValueFormatter {
     
     var array = [String]()
     

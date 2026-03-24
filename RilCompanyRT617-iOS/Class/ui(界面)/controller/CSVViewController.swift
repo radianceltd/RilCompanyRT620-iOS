@@ -156,33 +156,61 @@ class CSVViewController: NavigationController, UITableViewDelegate,UITableViewDa
     }
     
     // 删除文件协议
+//    func sendDeleteFile(delMode: UInt8, fileName: String? = nil) {
+//        let ins: UInt8 = 0x03
+//        var data: [UInt8] = []
+//       
+//        // 添加删除模式
+//        data.append(delMode)
+//       
+//        // 如果是删除单个文件，添加文件名
+//        if delMode == 0 && fileName != nil {
+//            // 将文件名转换为ASCII码
+//            if let fileNameData = fileName?.data(using: .ascii) {
+//                data.append(contentsOf: fileNameData.map { UInt8($0) })
+//            }
+//        }
+//       
+//        let len: UInt8 = UInt8(data.count)
+//        let inssub: UInt8 = 0x09
+//       
+//        // 直接调用 queryDeviceData 方法，因为它总是返回 Data
+//        let packet = self.allExpanded.queryDeviceData(ins: ins, len: len, inssub: inssub, data: data)
+//       
+//        let hexString = self.allExpanded.hexadecimalString(from: packet)
+//        print("Delete file instruction：", hexString)
+//       
+//        BleManager.shared.writeValue(packet, self.model.mSendotacharater, self.model.mPeripheral)
+//    }
     func sendDeleteFile(delMode: UInt8, fileName: String? = nil) {
         let ins: UInt8 = 0x03
-        var data: [UInt8] = []
-       
-        // 添加删除模式
-        data.append(delMode)
-       
-        // 如果是删除单个文件，添加文件名
-        if delMode == 0 && fileName != nil {
-            // 将文件名转换为ASCII码
-            if let fileNameData = fileName?.data(using: .ascii) {
-                data.append(contentsOf: fileNameData.map { UInt8($0) })
+        var packetData: [UInt8] = []
+
+        // INSsub = 0x09 删除文件子指令
+        packetData.append(0x09)
+        // D0 = DELMD 删除模式
+        packetData.append(delMode)
+
+        // 2. 如果是删除单个文件（DELMD=0 或 1），添加文件名
+        if (delMode == 0 || delMode == 1), let name = fileName {
+            // 将文件名转换为 ASCII 码（确保文件名只含 ASCII 字符）
+            guard let fileNameData = name.data(using: .ascii) else {
+                print("文件名包含非 ASCII 字符，无法删除")
+                return
             }
+            packetData.append(contentsOf: fileNameData.map { UInt8($0) })
         }
-       
-        let len: UInt8 = UInt8(data.count)
-        let inssub: UInt8 = 0x09
-       
-        // 直接调用 queryDeviceData 方法，因为它总是返回 Data
-        let packet = self.allExpanded.queryDeviceData(ins: ins, len: len, inssub: inssub, data: data)
-       
+
+        // 3. LEN = packetData.count → 因为 LEN 就是参数总长度（包括 INSsub 在内）
+        let len: UInt8 = UInt8(packetData.count)
+
+        // 4. 使用 buildInstructionPacket 组装完整包
+        let packet = self.allExpanded.buildInstructionPacket(ins: ins, len: len, data: packetData)
         let hexString = self.allExpanded.hexadecimalString(from: packet)
         print("Delete file instruction：", hexString)
-       
+
         BleManager.shared.writeValue(packet, self.model.mSendotacharater, self.model.mPeripheral)
     }
-    
     
     //读取CSV文件名列表
     func sendGetCSVfile(inssub:UInt8){

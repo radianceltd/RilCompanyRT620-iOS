@@ -8,7 +8,7 @@
 import UIKit
 import WHToast
 import MBProgressHUD
-import Charts
+import DGCharts
 
 
 let ALERTVIEW_HEIGHTM1 = UIScreen.main.bounds.size.height / 3.8

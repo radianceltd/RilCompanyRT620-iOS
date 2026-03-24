@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Charts
+import DGCharts
 
 
 protocol ChartViewProtocol:NSObjectProtocol {
@@ -178,7 +178,7 @@ class ChartView: BaseView {
            make.bottom.equalTo(self).offset(-55);
         }
         
-        lineChart!.chartDescription!.enabled = false
+        lineChart!.chartDescription.enabled = false
         lineChart!.dragEnabled = true
         lineChart!.setScaleEnabled(true)
         lineChart!.drawGridBackgroundEnabled = false

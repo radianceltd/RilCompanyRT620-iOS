@@ -8,7 +8,7 @@
 import UIKit
 import SwiftEventBus
 import WHToast
-import Charts
+import DGCharts
 
 protocol MoreViewDelegate:NSObjectProtocol {
 
@@ -104,7 +104,7 @@ class MoreView: BaseView{
        lineChart = LineChartView()
        
        
-       lineChart!.chartDescription!.enabled = false
+        lineChart!.chartDescription.enabled = false
        lineChart!.dragEnabled = true
        lineChart!.setScaleEnabled(true)
        lineChart!.drawGridBackgroundEnabled = false

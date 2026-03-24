@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Charts
+import DGCharts
 import SwiftEventBus
 
 class ChartViewController:NavigationController,ChartViewProtocol,ChartViewDelegate,
@@ -159,10 +159,10 @@ class ChartViewController:NavigationController,ChartViewProtocol,ChartViewDelega
         marker.chartView = chartView.lineChart
         marker.minimumSize = CGSize(width: 60.0, height: 40.0)
         chartView.lineChart!.marker = marker
-        chartView.lineChart!.chartDescription?.enabled = false
+        chartView.lineChart!.chartDescription.enabled = false
         
         chartView.leftAxis!.drawLimitLinesBehindDataEnabled = true
-        chartView.lineChart!.chartDescription!.enabled = false
+        chartView.lineChart!.chartDescription.enabled = false
         
         chartView.lineChart!.legend.formSize = 8
         chartView.lineChart!.legend.textColor = UIColor.gray
@@ -281,12 +281,21 @@ class ChartViewController:NavigationController,ChartViewProtocol,ChartViewDelega
             set1?.fillColor = UIColor.red
             set1?.highlightColor = UIColor.red
             
-            var dataSets: [Any] = []
-            dataSets.append(set1!)
-            let data = LineChartData(dataSets: [set1] as? [IChartDataSet])
-            data.setValueFont(.systemFont(ofSize: 9.0))
-            data.setValueTextColor(.white)
-            chartView.lineChart?.data = data
+            //4.1.0版本
+//            var dataSets: [Any] = []
+//            dataSets.append(set1!)
+//            let data = LineChartData(dataSets: [set1] as? [IChartDataSet])
+//            data.setValueFont(.systemFont(ofSize: 9.0))
+//            data.setValueTextColor(.white)
+//            chartView.lineChart?.data = data
+            
+            // 关键修复：正确处理可选类型和使用正确的协议
+            if let validSet = set1 {
+                let data = LineChartData(dataSets: [validSet])
+                data.setValueFont(.systemFont(ofSize: 9.0))
+                data.setValueTextColor(.white)
+                chartView.lineChart?.data = data
+            }
             //}
         }
     }
